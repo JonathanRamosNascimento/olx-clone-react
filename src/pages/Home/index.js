@@ -1,12 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { SearchArea, PageArea } from './styled';
+import useApi from '../../helpers/OlxAPI';
+
+import { PageContainer } from '../../components/MainComponent';
 
 const Page = () => {
+    const api = useApi();
+
     return (
-        <div>
-            <h1>Página Inicial</h1>
-            <Link to="/about">Sobre</Link>
-        </div>
+
+        <>
+            <SearchArea>
+                <PageContainer>
+                    ...
+                </PageContainer>
+            </SearchArea>
+            <PageContainer>
+                <PageArea>
+                    ...
+                </PageArea>
+            </PageContainer>
+        </>
+
     );
 }
 

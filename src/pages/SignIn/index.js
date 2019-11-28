@@ -10,13 +10,14 @@ const Page = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [rememberPassword, setRememverPassword] = useState('');
+    const [rememberPassword, setRememverPassword] = useState(false);
     const [disabled, setDesabled] = useState(false);
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDesabled(true);
+        setError('');
 
         const json = await api.login(email, password);
 
@@ -26,6 +27,7 @@ const Page = () => {
             doLogin(json.token, rememberPassword);
             window.location.href = '/';
         }
+        setDesabled(false);
     }
 
     return (
