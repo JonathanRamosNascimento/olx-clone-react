@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Sldie } from 'react-slideshow-image';
 import { PageArea, Fake } from './styled';
 import useApi from '../../helpers/OlxAPI';
 
@@ -15,10 +16,9 @@ const Page = () => {
     useEffect(() => {
         const getAdInfo = async (id) => {
             const json = await api.getAd(id, true);
-            console.log(json);
             setAdInfo(json);
-            setLoading(false);
             console.log(adInfo);
+            setLoading(false);
         }
         getAdInfo(id);
     }, []);
@@ -41,6 +41,15 @@ const Page = () => {
                     <div className="box">
                         <div className="adIamge">
                             {loading && <Fake height={300} />}
+                            {adInfo.images &&
+                                <Sldie>
+                                    {adInfo.images.map((img, k) =>
+                                        <div key={k} className="each-slide">
+                                            <img src={img} alt=""/>
+                                        </div>
+                                    )}
+                                </Sldie>
+                            }
                         </div>
                         <div className="adInfo">
                             <div className="adName">
