@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Sldie } from 'react-slideshow-image';
+import { Slide } from 'react-slideshow-image';
 import { PageArea, Fake } from './styled';
 import useApi from '../../helpers/OlxAPI';
 
@@ -17,10 +17,10 @@ const Page = () => {
         const getAdInfo = async (id) => {
             const json = await api.getAd(id, true);
             setAdInfo(json);
-            console.log(adInfo);
             setLoading(false);
         }
         getAdInfo(id);
+
     }, []);
 
     const formatDate = (date) => {
@@ -39,16 +39,16 @@ const Page = () => {
             <PageArea>
                 <div className="leftSide">
                     <div className="box">
-                        <div className="adIamge">
+                        <div className="adImage">
                             {loading && <Fake height={300} />}
                             {adInfo.images &&
-                                <Sldie>
+                                <Slide>
                                     {adInfo.images.map((img, k) =>
                                         <div key={k} className="each-slide">
-                                            <img src={img} alt=""/>
+                                            <img src={img} alt="" />
                                         </div>
                                     )}
-                                </Sldie>
+                                </Slide>
                             }
                         </div>
                         <div className="adInfo">
@@ -75,6 +75,12 @@ const Page = () => {
                 <div className="rightSide">
                     <div className="box box--padding">
                         {loading && <Fake height={20} />}
+                        {adInfo.priceNegotiable &&
+                            "Preço Negociável"
+                        }
+                        {!adInfo.priceNegotiable && adInfo.price &&
+                            <div className="price">Preço: <span>R$ {adInfo.price}</span></div>
+                        }
                     </div>
                     <div className="box box--padding">
                         {loading && <Fake height={50} />}
