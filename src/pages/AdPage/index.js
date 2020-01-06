@@ -66,7 +66,7 @@ const Page = () => {
                                 {adInfo.description}
                                 <hr />
                                 {adInfo.views &&
-                                    <small>Visualizações: ${adInfo.views}</small>
+                                    <small>Visualizações: {adInfo.views}</small>
                                 }
                             </div>
                         </div>
@@ -82,9 +82,17 @@ const Page = () => {
                             <div className="price">Preço: <span>R$ {adInfo.price}</span></div>
                         }
                     </div>
-                    <div className="box box--padding">
-                        {loading && <Fake height={50} />}
-                    </div>
+                    {loading && <Fake height={50} />}
+                    {adInfo.userInfo &&
+                        <>
+                            <a href={`mailto:${adInfo.userInfo.email}`} target="_blank" className="contactSellerLink">Fale com o vendedor</a>
+                            <div className="createdBy box box--padding">
+                                <strong>{adInfo.userInfo.name}</strong>
+                                <small>E-mail: {adInfo.userInfo.email}</small>
+                                <small>Estado: {adInfo.stateName}</small>
+                            </div>
+                        </>
+                    }
                 </div>
             </PageArea>
         </PageContainer>
